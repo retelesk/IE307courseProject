@@ -1,55 +1,25 @@
 import React from "react";
-import {Button, Image, StyleSheet, Text, View} from "react-native";
+import LoginScreen from "./src/screens/auth/LoginScreen";
+import {createStackNavigator} from "@react-navigation/stack";
+import {NavigationContainer} from "@react-navigation/native";
+import RegisterScreen from "./src/screens/auth/RegisterScreen";
+import DashboardScreen from "./src/screens/main/DashboardScreen";
+import ForgotPasswordScreen from "./src/screens/auth/ForgotPasswordScreen";
+
+const Stack = createStackNavigator();
 
 const FinancialManagerApp = () => {
-    return (
-        <View style={styles.container}>
-            <Image style={styles.logo} source={require('./assets/wallet-solid-full.png')}/>
-            <Text style={styles.welcomeText}>Finance Manager App</Text>
-            <View style={styles.buttonContainer}>
-                <Button color="#25215E"
-                        title="Login"
-                        onPress={() => {
-                            alert("Login");
-                        }}
-                />
-                <Button color="#25215E" title="Register" onPress={() => {
-                    alert("Register");
-                }}/>
-            </View>
-
-        </View>
-    );
-};
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#FFFFFF",
-        rowGap: 20,
-    },
-    welcomeText: {
-        color: "#25215E",
-        fontWeight: "bold",
-        fontSize: 22,
-        textTransform: "uppercase",
-    },
-    logo: {
-        width: 60,
-        height: 60,
-        resizeMode: "contain",
-    },
-    button: {
-        color: '#FBAC42'
-    },
-    buttonContainer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        width: "60%",
-        columnGap: 10,
-    }
-});
+    return <NavigationContainer>
+        <Stack.Navigator initialRouteName="LoginScreen" id="login" screenOptions={{headerShown: false}}>
+            <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown: false}} id="loginScreen"/>
+            <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{headerShown: false}}
+                          id="registerScreen"/>
+            <Stack.Screen name="DashboardScreen" component={DashboardScreen} options={{headerShown: false}}
+                          id="dashboardScreen"/>
+            <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{headerShown: false}}
+                          id="forgotPasswordScreen"/>
+        </Stack.Navigator>
+    </NavigationContainer>
+}
 
 export default FinancialManagerApp;

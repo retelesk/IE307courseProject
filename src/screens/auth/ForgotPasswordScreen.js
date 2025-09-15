@@ -2,7 +2,7 @@ import React from "react";
 import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {styles} from "../../utils/Styles";
 
-const LoginScreen = ({navigation}) => {
+const ForgotPasswordScreen = ({navigation}) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [loading, setLoading] = React.useState(true);
@@ -14,13 +14,11 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.container}>
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require('../../assets/icons/wallet-solid-full.png')}/>
-                <Text style={styles.welcomeText}>BudgetNest</Text>
+                <Text style={styles.welcomeText}>Quên mật khẩu?</Text>
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.inputTitle}>Email</Text>
                 <TextInput style={styles.input} value={email} onChangeText={setEmail}/>
-                <Text style={styles.inputTitle}>Mật khẩu</Text>
-                <TextInput style={styles.input} value={password} onChangeText={setPassword} secureTextEntry={true}/>
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.mainButton} onPress={() => {
@@ -30,24 +28,16 @@ const LoginScreen = ({navigation}) => {
                         params: {user: userData}
                     });
                 }}>
-                    <Text style={styles.mainButtonText}>Đăng nhập</Text>
+                    <Text style={styles.mainButtonText}>Đặt lại mật khẩu</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
-                    navigation.navigate('ForgotPasswordScreen');
+                    navigation.navigate('LoginScreen')
                 }}>
-                    <Text style={styles.subButtonText}>Quên mật khẩu</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.footerContainer}>
-                <Text style={styles.inputTitle}>Chưa có tài khoản?</Text>
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate('RegisterScreen')
-                }}>
-                    <Text style={styles.subButtonText}>Đăng ký</Text>
+                    <Text style={styles.subButtonText}>Quay lại đăng nhập</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
 
-export default LoginScreen;
+export default ForgotPasswordScreen;
