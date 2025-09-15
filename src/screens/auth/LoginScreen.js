@@ -1,35 +1,102 @@
 import React from "react";
 import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {styles} from "../../utils/Styles";
+import validator from "validator";
+
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
-    const [success, setSuccess] = React.useState(false);
-    const [errorText, setErrorText] = React.useState("");
-    let userData = {}
+
+    const validateEmail = (email) => {
+        if (!email) {
+            setError('Email không đươợc để trống');
+            return false;
+        }
+        if (!validator.isEmail(email)) {
+            setError('Email không hợp lệ');
+            return false;
+        }
+        setError("")
+        return true;
+    }
+
+    const handleEmailChange = (text) => {
+        setEmail(text);
+        if (error && text) {
+            setError("");
+        }
+    }
+    const handleLogin = async () => {
+        if (!validateEmail(email)) {
+            return;
+        }
+        if (!password) {
+            setError("Mật khẩu không được để trống");
+        }
+        if (password.length < 8) {
+            setError("Mật khẩu phải có ít nhất 8 ký tự")
+        }
+        setLoading(true);
+        setError("");
+
+        try {
+            const response = await fetch('https://budget.retelesk.synology.me/api/v1/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email, password}),
+            });
+            const data = await response.json();
+            setTimeout(() => {
+                if (response.ok) {
+                    localStorage.setItem('token', data.token)
+                    setLoading(false);
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: 'DashboardScreen'}],
+                        params: {user: data}
+                    })
+                }
+            }, 1500)
+
+        } catch (error) {
+            setLoading(false);
+            setError(error.message || "Đăng nhập thất bại");
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require('../../assets/icons/wallet-solid-full.png')}/>
                 <Text style={styles.welcomeText}>BudgetNest</Text>
             </View>
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
             <View style={styles.inputContainer}>
                 <Text style={styles.inputTitle}>Email</Text>
-                <TextInput style={styles.input} value={email} onChangeText={setEmail}/>
+                <TextInput style={[styles.input, error ? styles.inputError : null]}
+                           value={email}
+                           onChangeText={setEmail}
+                           onChange={handleEmailChange}
+                           onBlur={() => {
+                               validateEmail(email)
+                           }}
+                           keyboardType="email-address"
+                           autoCapitalize="none"
+                           editable={!loading}/>
                 <Text style={styles.inputTitle}>Mật khẩu</Text>
-                <TextInput style={styles.input} value={password} onChangeText={setPassword} secureTextEntry={true}/>
+                <TextInput style={styles.input} value={password}
+                           onChangeText={setPassword}
+                           secureTextEntry={true}
+                           editable={!loading}/>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.mainButton} onPress={() => {
-                    navigation.reset({
-                        index: 0,
-                        routes: [{name: 'DashboardScreen'}],
-                        params: {user: userData}
-                    });
-                }}>
+                <TouchableOpacity style={[styles.mainButton, loading && styles.disabledButton]}
+                                  onPress={handleLogin} disabled={loading}>
                     <Text style={styles.mainButtonText}>Đăng nhập</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {

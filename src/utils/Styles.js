@@ -73,6 +73,17 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         marginBottom: 50,
         marginTop: 'auto'
-    }
+    },
+    inputError: {
+        borderColor: "red",
+    },
+    disabledButton: {
+        opacity: 0.5,
+    },
+    errorText: {
+        color: "red",
+        fontSize: 14,
+        marginBottom: 10,
+    },
 
 })
