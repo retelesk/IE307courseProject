@@ -1,0 +1,45 @@
+{
+  "cli": {
+    "version": ">= 16.20.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "env": {
+          "EXPO_ANDROID_KEYSTORE_PATH": "./android/keystores/budgetnest-key.p12",
+          "EXPO_ANDROID_KEYSTORE_PASSWORD": "NG12191198",
+          "EXPO_ANDROID_KEY_ALIAS": "budgetnest",
+          "EXPO_ANDROID_KEY_PASSWORD": "NG12191198"
+        }
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "env": {
+          "EXPO_ANDROID_KEYSTORE_PATH": "./android/keystores/budgetnest-key.p12",
+          "EXPO_ANDROID_KEYSTORE_PASSWORD": "NG12191198",
+          "EXPO_ANDROID_KEY_ALIAS": "ybudgetnest",
+          "EXPO_ANDROID_KEY_PASSWORD": "NG12191198"
+        }
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "env": {
+          "EXPO_ANDROID_KEYSTORE_PATH": "./android/keystores/budgetnest-key.p12",
+          "EXPO_ANDROID_KEYSTORE_PASSWORD": "NG12191198",
+          "EXPO_ANDROID_KEY_ALIAS": "budgetnest",
+          "EXPO_ANDROID_KEY_PASSWORD": "NG12191198"
+        }
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
