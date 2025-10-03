@@ -3,7 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "../../utils/Styles";
 import validator from "validator";
 import { Alert } from "react-native";
-import authService from "../../services/authService";
+import { authService } from "../../services/auth/authServices.js";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState("");
@@ -45,16 +45,11 @@ const LoginScreen = ({ navigation }) => {
 
     try {
       const response = await authService.login(email, password);
-
-      Alert.alert("Thành công", "Đăng nhập thành công");
-
       navigation.reset({
         index: 0,
         routes: [{ name: "DashboardScreen" }],
       });
     } catch (error) {
-      console.error("Lỗi đăng nhập:", error);
-
       let errorMessage = "Đăng nhập thất bại";
       if (error.message) {
         errorMessage = error.message;
@@ -63,8 +58,6 @@ const LoginScreen = ({ navigation }) => {
       } else if (error.error) {
         errorMessage = error.error;
       }
-
-      Alert.alert("Lỗi", errorMessage);
     } finally {
       setLoading(false);
     }
