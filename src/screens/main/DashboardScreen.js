@@ -3,7 +3,7 @@ import {TouchableOpacity, View} from "react-native";
 import {VictoryBar, VictoryChart, VictoryTheme} from "victory-native";
 import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 
-const DashboardScreen = ({navigation}) => {
+export default function DashboardScreen({navigation}) {
     const data = [
         {quarter: 1, earnings: 13000},
         {quarter: 2, earnings: 16500},
@@ -67,4 +67,3 @@ const styles = {
         columnGap: 20,
     },
 }
-export default DashboardScreen;
