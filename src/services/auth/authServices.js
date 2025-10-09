@@ -1,4 +1,5 @@
-import api from "./api";
+import api from "../api/api.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const authService = {
   login: async (email, password) => {
@@ -8,12 +9,16 @@ export const authService = {
         password,
       });
 
-      if (response.data.token) {
-        await AsyncStorage.setItem("userToken", response.data.token);
-        await AsyncStorage.setItem(
-          "userData",
-          JSON.stringify(response.data.user)
-        );
+      const { token, user } = response.data || {};
+
+      if (token) {
+        await AsyncStorage.setItem("userToken", token);
+      }
+
+      if (user) {
+        await AsyncStorage.setItem("userData", JSON.stringify(user));
+      } else {
+        await AsyncStorage.removeItem("userData");
       }
 
       return response.data;
@@ -22,7 +27,7 @@ export const authService = {
     }
   },
 
-  // Đăng xuất
+  // Dang xu?t
   logout: async () => {
     try {
       await AsyncStorage.removeItem("userToken");

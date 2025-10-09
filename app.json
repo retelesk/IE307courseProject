@@ -2,28 +2,35 @@
   "expo": {
     "name": "BudgetNest",
     "slug": "budgetnest",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icons/icon.png",
+    "icon": "./src/assets/icons/wallet-solid-full.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./src/assets/icons/icon.png",
+      "image": "./src/assets/icons/wallet-solid-full.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.retelesk.budgetnest"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/icons/icon.png",
+        "foregroundImage": "./src/assets/icons/wallet-solid-full.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.retelesk.budgetnest"
     },
     "web": {
-      "favicon": "./src/assets/icons/icon.png"
+      "favicon": "./src/assets/icons/wallet-solid-full.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "77ee89ec-b62c-4b70-baf4-5fbb96157597"
+      }
     }
   }
 }
