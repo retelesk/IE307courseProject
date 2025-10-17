@@ -1,13 +1,13 @@
 import React from "react";
-import {createStackNavigator} from "@react-navigation/stack";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import RootNavigator from "./src/navigation/RootNavigator";
-
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+import { AuthProvider } from "./src/contexts/AuthContext";
 
 const App = () => {
-    return <RootNavigator/>
-}
+  return (
+    <AuthProvider>
+      <RootNavigator />
+    </AuthProvider>
+  );
+};
 
 export default App;
